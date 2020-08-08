@@ -2,7 +2,7 @@
 
 Preview version:
 
-![Preview version](https://imgur.com/a/nKr6R0u)
+![Preview version](https://i.imgur.com/JoRI5vG.png)
 
 ## Getting Started
 
