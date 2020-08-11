@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shop/providers/chart.dart';
 import 'package:shop/providers/product.dart';
 import 'package:shop/utils/app_routes.dart';
 import 'package:provider/provider.dart';
@@ -6,7 +7,10 @@ import 'package:provider/provider.dart';
 class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    
     final Product product = Provider.of<Product>(context, listen: false);
+
+    final Cart cart = Provider.of<Cart>(context, listen: false);
 
     return ClipRRect(
       //faz uma borda arredondada no tile
@@ -32,10 +36,9 @@ class ProductItem extends StatelessWidget {
           //Botão de favorito
           /*Ao invés de escutar toda a classe, marca-se o listen como false (linha 9) e com Consumer<>,
           * escuta apenas um pedaço do códgio */
-          leading: Consumer<Product>( 
+          leading: Consumer<Product>(
             builder: (ctx, p, _) => IconButton(
-              icon: Icon(
-                  p.isFavorite ? Icons.favorite : Icons.favorite_border),
+              icon: Icon(p.isFavorite ? Icons.favorite : Icons.favorite_border),
               color: Theme.of(context).accentColor,
               onPressed: () {
                 p.toggleFavorite();
@@ -53,7 +56,9 @@ class ProductItem extends StatelessWidget {
           trailing: IconButton(
             icon: Icon(Icons.shopping_cart),
             color: Theme.of(context).accentColor,
-            onPressed: () {},
+            onPressed: () {
+              cart.addItem(product);
+            },
           ),
         ),
       ),

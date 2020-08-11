@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:flutter/foundation.dart';
-
-import 'models/product.dart';
+import 'package:shop/providers/product.dart';
 
 class CartItem {
   final String id;
@@ -19,9 +17,11 @@ class CartItem {
 }
 
 class Cart with ChangeNotifier {
-  Map<String, CartItem> _items;
+  Map<String, CartItem> _items = {};
 
   Map<String, CartItem> get items => {..._items};
+
+  int get itemCount => _items.length;
 
   void addItem(Product product) {
     if (_items.containsKey(product.id)) {
