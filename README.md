@@ -1,6 +1,8 @@
-# shop
+# Simple Shoping Application Made With Flutter
 
-A new Flutter project.
+Preview version:
+
+![Preview version](https://i.imgur.com/JoRI5vG.png)
 
 ## Getting Started
 
