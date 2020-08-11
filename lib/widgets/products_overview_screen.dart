@@ -11,17 +11,22 @@ enum FilterOptions {
 class ProductOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final productsProvider = Provider.of<Products>(context);
-    final loadedProducts = productsProvider.items;
+    final products = Provider.of<Products>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Minha Loja'),
         actions: <Widget>[
           PopupMenuButton(
-            onSelected: (FilterOptions selectedValue) =>
-                print('Winner is $selectedValue'),
+            onSelected: (FilterOptions selectedValue) {
+              if (selectedValue == FilterOptions.Favorite)
+                products.showFavoriteOnly();
+              else
+                products.showAll();
+            },
+            
             itemBuilder: (_) => [
+              //arrow function que retorna um array
               PopupMenuItem(
                 child: Text('Somente Favoritos'),
                 value: FilterOptions.Favorite,
@@ -34,7 +39,7 @@ class ProductOverviewScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: ProductGrid(loadedProducts: loadedProducts),
+      body: ProductGrid(),
     );
   }
 }
