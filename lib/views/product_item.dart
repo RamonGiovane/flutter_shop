@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:shop/models/product.dart';
 import 'package:shop/utils/app_routes.dart';
+import 'package:provider/provider.dart';
 
 class ProductItem extends StatelessWidget {
-  final Product product;
-
-  ProductItem(this.product);
-
   @override
   Widget build(BuildContext context) {
+    final Product product = Provider.of<Product>(context, listen: false);
+
     return ClipRRect(
       //faz uma borda arredondada no tile
       borderRadius: BorderRadius.circular(10),
@@ -31,10 +30,17 @@ class ProductItem extends StatelessWidget {
           backgroundColor: Colors.black87,
 
           //Botão de favorito
-          leading: IconButton(
-            icon: Icon(Icons.favorite),
-            color: Theme.of(context).accentColor,
-            onPressed: () {},
+          /*Ao invés de escutar toda a classe, marca-se o listen como false (linha 9) e com Consumer<>,
+          * escuta apenas um pedaço do códgio */
+          leading: Consumer<Product>( 
+            builder: (ctx, p, _) => IconButton(
+              icon: Icon(
+                  p.isFavorite ? Icons.favorite : Icons.favorite_border),
+              color: Theme.of(context).accentColor,
+              onPressed: () {
+                p.toggleFavorite();
+              },
+            ),
           ),
 
           //Nome do produto
